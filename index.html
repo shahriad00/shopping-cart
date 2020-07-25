@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusItem" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button id="firstMinusItem" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="firstCount" type="text" class="form-control text-center" value="1">
-                           <button id="addItem" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="firstAddItem" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="secondMinusItem" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="secondCount" type="text" class="form-control text-center" value="1">
+                           <button id="secondAddItem" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="casePrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -80,17 +80,68 @@
    <!--script-->
    <script>
       // first count (+) event handler
-      const addItem = document.getElementById('addItem');
-      addItem.addEventListener('click',function(){
+      const firstAddItem = document.getElementById('firstAddItem');
+      firstAddItem.addEventListener('click',function(){
         countUp("firstCount");
+        let phonePrice = document.getElementById('phonePrice').innerText;
+        let firstPhonePrice = parseFloat(phonePrice);
+        
+        for (let i = 0; i <= firstCount.value ; i++) {
+            firstPhonePrice = i * 1219 ;  
+            document.getElementById('phonePrice').innerText = firstPhonePrice ;   
+        }
        })
       // first count (-) event handler
 
-      const minusItem = document.getElementById('minusItem');
-      minusItem.addEventListener('click',function(){
+      const firstMinusItem = document.getElementById('firstMinusItem');
+      firstMinusItem.addEventListener('click',function(){
         countDown( "firstCount");
+        let phonePrice = document.getElementById('phonePrice').innerText;
+        let firstPhonePrice = parseFloat(phonePrice);
+        
+        for (let i = firstCount.value; i >= firstCount.value ; i--) {
+            firstPhonePrice = document.getElementById('phonePrice').innerText - 1219 ;
+            if(firstCount.value == 0){ 
+               document.getElementById('phonePrice').innerText = '0';
+               break;
+             }
+            document.getElementById('phonePrice').innerText = firstPhonePrice ;   
+        }
+      
        })
-     
+       // second count (+) event handler
+       const secondAddItem = document.getElementById('secondAddItem');
+       secondAddItem.addEventListener('click',function(){
+        countUp("secondCount");
+        let casePrice = document.getElementById('casePrice').innerText;
+        let firstCasePrice = parseFloat(casePrice);
+        
+        for (let i = 0; i <= secondCount.value ; i++) {
+            firstCasePrice = i * 59 ;  
+            document.getElementById('casePrice').innerText = firstCasePrice ;   
+        }
+       })
+
+       // second count (-) event handler
+
+      const secondMinusItem = document.getElementById('secondMinusItem');
+      secondMinusItem.addEventListener('click',function(){
+        countDown( "secondCount");
+        let casePrice = document.getElementById('casePrice').innerText;
+        let firstCasePrice = parseFloat(casePrice);
+        
+        for (let i = secondCount.value; i >= secondCount.value ; i--) {
+            firstCasePrice = document.getElementById('casePrice').innerText - 59 ;
+            if(secondCount.value == 0){ 
+               document.getElementById('casePrice').innerText = '0';
+               break;
+             }
+            document.getElementById('casePrice').innerText = firstCasePrice ;   
+        }
+      })
+
+
+
       function countUp(id){
          const firstCount = document.getElementById(id).value;
          let countUp = parseFloat(firstCount);
@@ -102,8 +153,9 @@
          const firstCount = document.getElementById(id).value;
          let countDown = parseFloat(firstCount);
              countDown = countDown - 1;
-             if(countDown < 0){
-               countDown = 0;
+             if(countDown <= 0){
+               countDown = 0; 
+              
              }
          document.getElementById(id).value = countDown;
       }
